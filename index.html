@@ -51,9 +51,13 @@
     {
         let msg1=document.querySelectorAll(".a label")
         let msg2=document.querySelectorAll(".b label")
-        if(window.innerWidth<850){msg1.style.fontSize="30px",msg2.style.fontSize="15px"}
-        if(window.innerWidth>850 && window.innerWidth<950){msg1.style.fontSize="40px",msg2.style.fontSize="20px"}
-        if(window.innerWidth>950 && window.innerWidth<1050){msg1.style.fontSize="50px",msg2.style.fontSize="25px"}
+        window.addEventListener("resize",function()
+    {
+        if(window.innerWidth<850){msg1[0].style.fontSize="30px",msg2[0].style.fontSize="15px"}
+        if(window.innerWidth>850 && window.innerWidth<950){msg1[0].style.fontSize="40px",msg2[0].style.fontSize="20px"}
+        if(window.innerWidth>950 && window.innerWidth<1050){msg1[0].style.fontSize="50px",msg2[0].style.fontSize="25px"}
+    })
+       
 
     })
     
