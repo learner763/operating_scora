@@ -3,124 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OPERATING SCORA ROBOT</title>
+    <title>Document</title>
     <style>
         body{
-            background-color: blue;
             margin: 0%;
         }
         html{
             scroll-behavior: smooth;
-
         }
         .a{
-            width: 100%;
-            justify-content: space-around;
-            align-items: center;
             display: flex;
-            flex-wrap: wrap;
-            font-size: 60px;
+            position: fixed;
+            top: 0%;
             background-color: black;
-            flex-direction: column;
-        }
-        
-        .b{
-            background-color: white;
-            justify-content: center;
-            align-items: center;
-            display: flex;
-            flex-wrap: wrap;
-            color: blue;
-            border-radius: 30px;
-            font-size: 30px;
-        }
-        .Keywords{
             width: 100%;
-            color: white;
             justify-content: space-around;
-            display: flex;
-            font-size: 30px;
-        }
-        @media (max-width:850px)
-        {
-            .a label{font-size: 30px;}
-            .Keywords label{font-size: 15px;}
-            .b label{font-size: 15px;}
-
-        }
-        .Keywords label{
-            background-color: #212232;
-            flex: .333;
-            display: flex;
-            justify-content: center;
             align-items: center;
+            font-weight: bolder;
+            color: white;
+            font-size: 20px;
+            flex-wrap: wrap;
+        }
+        .a label{
             cursor: pointer;
         }
-        .img1 {
-            width: 250px;
+        .b{
+            display: flex;
+            width: 100%;
+            background-color: #15050f;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            flex-direction: row;
+            margin-top: 23px;
+
         }
         
     </style>
 </head>
+
 <body>
-        <div class="a" style="position: fixed;top:0;">
-            <label style="font-weight:bolder;font-style: italic;color: white;">
-                SCORA ER-14 ROBOT
-            </label>
-            <div class="Keywords" style="font-weight: bolder;font-style: italic;">
-                <label >Description</label>
-                <label >Kinematics</label>
-                <label >Operation</label>
-    
-            </div>
-        </div>
-        
-        <div id="Description">
-            <div class="b" style="margin-top: 150px;margin-bottom: 50px;">
-                <label style="font-style: normal;margin: 40px;">
-                        The SCORA ER-14 is a versatile 4-axis robotic arm, designed for education
-                        and research in robotics and automation. Known for its precision and reliability,
-                        it’s perfect for tasks like picking, placing, and simulating industrial processes.
-                        Ideal for teaching concepts like forward and inverse kinematics,
-                        it’s a must-have tool for anyone exploring the world of robotics.
-                </label>
-            </div>
-            <img class="img1" style="display: flex; justify-self: center;align-self: center;" src="scora.png" alt="">
-        </div>
-
-        <div id="Kinematics">sddddddddddd</div>
-        <div id="Operation">cccccccccvc v fdvfvdvc</div>
-
+    <div class="a">
+        <label >About</label>
+        <label >Kinematics</label>
+        <label >Operation</label>
+        <label >Specifications</label>
+    </div>
+    <div class="b">
+        <h1 style="font-size: 40px;color: white;font-weight: bolder;">
+            SCORA ER-14 ROBOT
+        <p style="font-size: 30px;color: gray;">4-DOF Robotic Arm for Kinematics and Control</p>
+        </h1>
+        <img src="scora.png" width="300px" alt="">
+    </div>
     <script>
-        document.addEventListener("DOMContentLoaded",function()
+        document.addEventListener("DOMContentLoaded",()=>
     {
-
-       let Keywords=document.querySelectorAll(".Keywords label")
-       Keywords[0].style.color="#212232"
-       Keywords[0].style.backgroundColor="white" 
-       let Description=document.getElementById("Description") 
-       let Operation=document.getElementById("Operation") 
-       let Kinematics=document.getElementById("Kinematics") 
-       let icons=["#Description","#Kinematics","#Operation"]
-       
-       for(let i=0;i<Keywords.length;i++)
+        let icons=document.querySelectorAll(".a label")
+        icons[0].style.color="yellow"
+        
+        for(let i=0;i<icons.length;i++)
         {
-        Keywords[i].addEventListener("click",function()
-        {
-            for(let j=0;j<Keywords.length;j++)
-        {
-            Keywords[j].style.color="white"
-            Keywords[j].style.backgroundColor="#212232"
+            icons[i].addEventListener("click",()=>
+            {
+                for(let j=0;j<icons.length;j++)
+                {
+                    icons[j].style.color="white"
+                }
+                icons[i].style.color="yellow"
+            })
         }
-            Keywords[i].style.color="#212232"
-            Keywords[i].style.backgroundColor="white"
-            window.location.hash=icons[i]
-        })
-        }
-       
-
-    })
-    
+    }
+    )
     </script>
 </body>
 </html>
