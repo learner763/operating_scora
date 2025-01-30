@@ -23,6 +23,8 @@
             color: white;
             font-size: 20px;
             flex-wrap: wrap;
+            border: white solid;
+            border-width: 0px 0px 1px 0px ;
         }
         .a label{
             cursor: pointer;
@@ -36,9 +38,18 @@
             flex-wrap: wrap;
             flex-direction: row;
             margin-top: 23px;
-
+            
         }
-        
+        #img1{
+            width: 300px;        
+        }
+        @media (max-width:850px)
+        {
+            .a label{font-size: 12px;}
+            .b h1{font-size: 24px;}
+            .b p{font-size: 18px;}
+            #img1{width: 200px;}
+        }
     </style>
 </head>
 
@@ -54,7 +65,7 @@
             SCORA ER-14 ROBOT
         <p style="font-size: 30px;color: gray;">4-DOF Robotic Arm for Kinematics and Control</p>
         </h1>
-        <img src="scora.png" width="300px" alt="">
+        <img id="img1" src="scora.png"  alt="">
     </div>
     <script>
         document.addEventListener("DOMContentLoaded",()=>
