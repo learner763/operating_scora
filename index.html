@@ -52,6 +52,8 @@
             .a label{font-size: 15px;}
             .b #h1{font-size: 24px;}
             .b #p{font-size: 18px;}
+            .c #c1{font-size: 18px;}
+            .c #c2{font-size: 15px;}
             #img1{width: 200px;}
         }
         #h1{
@@ -61,6 +63,33 @@
             font-size: 30px;
         }
         .c{
+            display: flex;
+            width: 100%;
+            background-color: #221210;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            flex-direction: column;
+            border: white solid;
+            border-width: 0px 0px 1px 0px ;
+            color: white;
+            
+        }
+        #c1{
+            font-size: 30px;
+            color: yellow;
+            font-weight: bolder;
+            margin-top: 10px;
+            margin-bottom: 10px;
+
+        }
+        #c2{
+            font-size: 20px;
+            color: white;
+            margin-right: 15px;
+            margin-left: 15px;
+            margin-bottom: 10px;
+
 
         }
     </style>
@@ -83,7 +112,16 @@
     </div>
 
     <div class="c">
-
+        <label id="c1">Overview</label>
+        <label id="c2">
+            The SCORA ER-14 is a 4-degree-of-freedom (DOF) robotic arm designed for educational
+            and industrial applications, particularly in kinematics, automation, and control system studies.
+            It features a robust mechanical structure with precise joint articulation, enabling users to 
+            perform forward and inverse kinematics calculations for motion planning. The robot is commonly
+            used in research labs and training institutes to teach robotics concepts, programming, and 
+            real-world automation techniques. Its compact design and compatibility with various control systems
+            make it a versatile tool for learning and experimentation in robotic manipulation.
+        </label>
     </div>
 
     <script>
