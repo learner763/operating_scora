@@ -46,15 +46,7 @@
             width: 300px;   
             margin-top: 20px;     
         }
-        @media (max-width:850px)
-        {
-            .a label{font-size: 15px;}
-            .b #h1{font-size: 24px;}
-            .b #p{font-size: 18px;}
-            .c #c1{font-size: 18px;}
-            .c #c2{font-size: 15px;}
-            #img1{width: 200px;}
-        }
+        
         #h1{
             font-size: 40px;
             margin-top:40px;
@@ -73,7 +65,7 @@
             color: white;
             
         }
-        #c1{
+        #c1, #e1{
             font-size: 30px;
             color: yellow;
             font-weight: bolder;
@@ -81,7 +73,7 @@
             margin-bottom: 10px;
 
         }
-        #c2{
+        #c2,#e2,#e3{
             font-size: 20px;
             color: white;
             margin-right: 15px;
@@ -89,6 +81,60 @@
             margin-bottom: 10px;
 
 
+        }
+        .e{
+            display: flex;
+            width: 100%;
+            background-color: blue;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            flex-direction: column;
+            border: white solid;
+            border-width: 0px 0px 1px 0px ;
+            color: white;
+        }
+        .e div{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            flex-direction: row;
+            
+        }
+        .e div label{
+            font-size: 20px;
+            color: yellow;
+            font-weight: bolder;
+            margin: 10px;
+        }
+        .e div button{
+            font-size: 20px;
+            color: black;
+            background-color: white;
+            border-radius: 5px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+        }
+        .e div button:hover{
+            background-color: black;
+            color: white;
+        }
+
+        @media (max-width:850px)
+        {
+            .a label{font-size: 15px;}
+            .b #h1{font-size: 24px;}
+            .b #p{font-size: 18px;}
+            .c #c1{font-size: 18px;}
+            .e #e1{font-size: 18px;}
+            .c #c2{font-size: 15px;}
+            .e #e2{font-size: 15px;}
+            .e #e3{font-size: 15px;}
+            .e div label{font-size: 15px;}
+            .e div button{font-size: 15px;}
+            #img1{width: 200px;}
         }
     </style>
 </head>
@@ -100,31 +146,67 @@
         <label >Operation</label>
         <label >Specifications</label>
     </div>
+    <div id="About">
+        <div class="b">
+            <h1 id="h1" style="color: yellow;font-weight: bolder;">
+                SCORA ER-14 ROBOT
+            <p id="p" style="color: white;">4-DOF Robotic Arm for Kinematics and Control</p>
+            </h1>
+            <img id="img1" src="scora.png"  alt="">
+        </div>
 
-    <div class="b">
-        <h1 id="h1" style="color: yellow;font-weight: bolder;">
-            SCORA ER-14 ROBOT
-        <p id="p" style="color: white;">4-DOF Robotic Arm for Kinematics and Control</p>
-        </h1>
-        <img id="img1" src="scora.png"  alt="">
+        <div class="c">
+            <label id="c1">Overview</label>
+            <label id="c2">
+                The SCORA ER-14 is a 4-degree-of-freedom (DOF) robotic arm designed for educational
+                and industrial applications, particularly in kinematics, automation, and control system studies.
+                It features a robust mechanical structure with precise joint articulation, enabling users to 
+                perform forward and inverse kinematics calculations for motion planning. The robot is commonly
+                used in research labs and training institutes to teach robotics concepts, programming, and 
+                real-world automation techniques. Its compact design and compatibility with various control systems
+                make it a versatile tool for learning and experimentation in robotic manipulation.
+            </label>
+        </div>
     </div>
+    <div id="Kinematics">
 
-    <div class="c">
-        <label id="c1">Overview</label>
-        <label id="c2">
-            The SCORA ER-14 is a 4-degree-of-freedom (DOF) robotic arm designed for educational
-            and industrial applications, particularly in kinematics, automation, and control system studies.
-            It features a robust mechanical structure with precise joint articulation, enabling users to 
-            perform forward and inverse kinematics calculations for motion planning. The robot is commonly
-            used in research labs and training institutes to teach robotics concepts, programming, and 
-            real-world automation techniques. Its compact design and compatibility with various control systems
-            make it a versatile tool for learning and experimentation in robotic manipulation.
-        </label>
+    </div>
+    <div id="Operation">
+        <div class="e">
+            <label id="e1">Operation</label>
+            <label id="e3">Precision control at your fingertips – Operate the SCORA robot with ease! </label>
+            <label id="e2"> Trigger a 10-degree rotation for individual robot joints.</label>
+            <div>
+                <label>Joint 1:</label>
+                <button>Start</button>
+                <button>Stop</button>
+            </div>
+            <div>
+                <label>Joint 2:</label>
+                <button>Start</button>
+                <button>Stop</button>
+            </div>
+            <div>
+                <label>Joint 3:</label>
+                <button>Start</button>
+                <button>Stop</button>
+            </div>
+            <div>
+                <label>Joint 4:</label>
+                <button>Start</button>
+                <button>Stop</button>
+            </div>
+                
+        </div>
+    </div>
+    <div id="Specification">
+
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded",()=>
     {
+        let ids=["#About","#Kinematics","#Operation","#Specification"]
         let icons=document.querySelectorAll(".a label")
         icons[0].style.color="yellow"
         
@@ -137,6 +219,7 @@
                     icons[j].style.color="white"
                 }
                 icons[i].style.color="yellow"
+                window.location.hash=ids[i]
             })
         }
     }
