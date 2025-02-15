@@ -96,7 +96,7 @@
             border-width: 0px 0px 1px 0px ;
             color: white;
         }
-        .e div{
+        .e div,.f div{
             display: flex;
             justify-content: space-around;
             align-items: center;
@@ -104,13 +104,13 @@
             flex-direction: row;
             
         }
-        .e div label{
+        .e div label,.f div label{
             font-size: 20px;
             color: yellow;
             font-weight: bolder;
             margin: 10px;
         }
-        .e div button{
+        .e div button,.f button{
             font-size: 20px;
             color: black;
             background-color: white;
@@ -122,6 +122,12 @@
         .e div input[type="checkbox"]{
             accent-color: black;
             cursor: pointer;
+        }
+        .f div input[type="number"]{
+            cursor: pointer;
+            font-size: 20px;
+            border-radius: 5px;
+            width: 200px;
         }
         .f{
             display: flex;
@@ -147,7 +153,9 @@
             .e #e2{font-size: 15px;}
             .e #e3{font-size: 15px;}
             .e div label{font-size: 15px;}
-            .e div button{font-size: 15px;}
+            .f div label{font-size: 15px;}
+            .f div input[type="number"]{font-size: 15px;}
+            .e div button,.f button{font-size: 15px;}
             #img1{width: 200px;margin-top: 10px;}
         }
     </style>
@@ -222,7 +230,25 @@
         </div>
         <div class="f">
             <label  id="f1"> Forward Kinematics</label>
-            <label id="f2">Provide joint angles as input to calculate the position of the end effector.</label>
+            <label id="f2">Provide joint angles as input and change the position of the end effector.</label>
+            <div>
+                <label>Joint 1:</label>
+                <input type="number" placeholder="Angle in Degrees">                
+            </div>
+            <div>
+                <label>Joint 2:</label>
+                <input type="number" placeholder="Angle in Degrees">                
+            </div>
+            <div>
+                <label>Joint 3:</label>
+                <input type="number" placeholder="Angle in Degrees">                
+            </div>
+            <div>
+                <label>Joint 4:</label>
+                <input type="number" placeholder="Angle in Degrees">                
+              
+            </div>
+            <button>Submit</button>
         </div>
     </div>
     <div id="Specification">
