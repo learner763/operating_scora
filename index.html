@@ -67,7 +67,7 @@
             color: white;
             
         }
-        #c1, #e1{
+        #c1, #e1,#f1{
             font-size: 30px;
             color: yellow;
             font-weight: bolder;
@@ -75,7 +75,7 @@
             margin-bottom: 10px;
 
         }
-        #c2,#e2,#e3{
+        #c2,#e2,#e3,#f2{
             font-size: 20px;
             color: white;
             margin-right: 15px;
@@ -123,7 +123,17 @@
             accent-color: black;
             cursor: pointer;
         }
-
+        .f{
+            display: flex;
+            width: 100%;
+            background-color: #3373C4;
+            justify-content: space-around;
+            align-items: center;
+            flex-direction: column;
+            border: white solid;
+            border-width: 0px 0px 1px 0px ;
+        }
+        
         @media (max-width:850px)
         {
             .a label{font-size: 15px;}
@@ -131,7 +141,9 @@
             .b #p{font-size: 18px;}
             .c #c1{font-size: 18px;}
             .e #e1{font-size: 18px;}
+            .f #f1{font-size: 18px;}
             .c #c2{font-size: 15px;}
+            .f #f2{font-size: 15px;}
             .e #e2{font-size: 15px;}
             .e #e3{font-size: 15px;}
             .e div label{font-size: 15px;}
@@ -207,6 +219,10 @@
 
             </div>
                 
+        </div>
+        <div class="f">
+            <label  id="f1"> Forward Kinematics</label>
+            <label id="f2">Provide joint angles as input to calculate the position of the end effector.</label>
         </div>
     </div>
     <div id="Specification">
