@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+:root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+@theme inline {
+    --color-muted-foreground: hsl(240 5% 64.9%);
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-primary: #89F336;
+    --font-main: "Special Gothic Expanded One";
+    --font-inter: "Inter";
+}
+
+body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: "Inter", sans-serif;
+}

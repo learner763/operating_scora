@@ -1,434 +1,308 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        body{
-            margin: 0%;
-        }
-        
-        html{
-            scroll-behavior: smooth;
-        }
-        .a{
-            display: flex;
-            position: fixed;
-            top: 0%;
-            background-color: black;
-            width: 100%;
-            justify-content: space-around;
-            align-items: center;
-            font-weight: bolder;
-            color: white;
-            font-size: 20px;
-            flex-wrap: wrap;
-            border: white solid;
-            border-width: 0px 0px 1px 0px ;
-        }
-        .a label{
-            cursor: pointer;
-            margin: 3px;
-        }
-        .b{
-            display: flex;
-            width: 100%;
-            background-color: #191960;
-            justify-content: space-around;
-            align-items: center;
-            flex-wrap: wrap;
-            flex-direction: row;
-            border: white solid;
-            border-width: 0px 0px 1px 0px ;
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 
-            
-        }
-        #img1{
-            width: 300px;   
-            margin-top: 40px;   
-              
-        }
-        
-        #h1{
-            font-size: 40px;
-            margin-top:40px;
-        }
-        
-        .c{
-            display: flex;
-            width: 100%;
-            background-color: darkblue;
-            justify-content: space-around;
-            align-items: center;
-            flex-wrap: wrap;
-            flex-direction: column;
-            border: white solid;
-            border-width: 0px 0px 1px 0px ;
-            color: white;
-            
-        }
-        #c1, #e1,#f1,#g1,#h1{
-            font-size: 30px;
-            color: lime;
-            font-weight: bolder;
-            margin-top: 10px;
-            margin-bottom: 10px;
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SCORA robot</title>
+        <link rel="stylesheet" href="./output.css" />
+    </head>
 
-        }
-        #c2,#e2,#e3,#f2,#f3,#h2,#g2,.g div div label{
-            font-size: 20px;
-            color: white;
-            margin-right: 15px;
-            margin-left: 15px;
-            margin-bottom: 10px;
+    <body class="bg-background w-full h-auto text-foreground">
 
-
-        }
-        .e{
-            display: flex;
-            width: 100%;
-            background-color: darkblue;
-            justify-content: space-around;
-            align-items: center;
-            flex-wrap: wrap;
-            flex-direction: column;
-            border: white solid;
-            border-width: 0px 0px 1px 0px ;
-            color: white;
-        }
-        .e div,.f div,.h div{
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            flex-wrap: wrap;
-            flex-direction: row;
-            
-        }
-        .e div label,.f div label,.h div label{
-            font-size: 20px;
-            color: lime;
-            font-weight: bolder;
-            margin: 10px;
-        }
-        .e div button,.f button,.h button{
-            font-size: 20px;
-            border-radius: 5px;
-            margin: 10px;
-            cursor: pointer;
-            background-color: white;
-            font-weight: bold;
-        }
-        .e div button,.h button{
-            color: darkblue;
-            border-width: 1px;
-            border: darkblue solid;
-
-        }
-        .f button{
-            color: #191960;
-            border: #191960 solid;
-
-        }
-        .e div button:hover,.f button:hover,.h button:hover{
-            color: white;
-            transition: all 0.3s ease-in-out; 
-            border: white solid;  
-         
-        }
-        .e div button:hover,.h button:hover{
-            background-color: darkblue;
-        }
-        .f button:hover{
-            background-color: #191960;
-        }
-        .e div input[type="checkbox"]{
-            cursor: pointer;
-            width: 20px;
-            height: 20px;
-        }
-        .e div input[type="checkbox"]:checked{
-            accent-color: darkblue;
-        }
-
-        .f div input[type="number"],.h div input[type="number"]{
-            cursor: pointer;
-            font-size: 20px;
-            border-radius: 5px;
-            border: none;
-        }
-        .f,.h{
-            display: flex;
-            width: 100%;
-            justify-content: space-around;
-            align-items: center;
-            flex-direction: column;
-            border: white solid;
-            border-width: 0px 0px 1px 0px ;
-        }
-        .h{
-            background-color: darkblue;
-        }
-        .f{
-            background-color:#191960;
-        }
-        .g{
-            display: flex;
-            background-color: #191960;
-            flex-direction: column;
-            justify-content: space-around;
-            align-items: center;
-            border: white solid;
-            border-width: 0px 0px 1px 0px ;
-        }
-        .g img{
-            width:350px;
-            
-        }
-        .g div div label{
-            width: 300px;
-            border-radius: 8px;
-            background-color: white;
-            color: #191960;
-            padding: 3px;
-
-        }
-        
-        .g div div{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .g div{
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            align-items: center;
-        }
-        @media (max-width:850px)
-        {
-            .a label{font-size: 15px;}
-            .b #h1{font-size: 24px;margin-top: 40px;}
-            .b #p{font-size: 18px;}
-            .c #c1{font-size: 18px;}
-            .e #e1{font-size: 18px;}
-            .f #f1{font-size: 18px;}
-            .g #g1{font-size: 18px;}
-            .h #h1{font-size: 18px;}
-            .c #c2{font-size: 15px;}
-            .f #f2{font-size: 15px;}
-            .f #f3{font-size: 15px;}
-            .e #e2{font-size: 15px;}
-            .e #e3{font-size: 15px;}
-            .g #g2{font-size: 15px;}
-            .h #h2{font-size: 15px;}
-            .e div label{font-size: 15px;}
-            .f div label,.h div label{font-size: 15px;}
-            .g div div label{font-size: 15px;}
-            .f div input[type="number"],.h div input[type="number"]{font-size: 15px;}
-            .e div button,.f button,.h button{font-size: 15px;}
-            #img1{width: 200px;margin-top: 10px;}
-
-            .g div div img{width: 250px;}
-        }
-    </style>
-</head>
-
-<body>
-    <div class="a">
-        <label >About</label>
-        <label >Kinematics</label>
-        <label >Operation</label>
-        <label >Specifications</label>
-    </div>
-    <div id="About">
-        <div class="b">
-            <h1 id="h1" style="color: lime;font-weight: bolder;">
-                SCORA ER-14 ROBOT
-            <p id="p" style="color: white;">4-DOF Robotic Arm for Kinematics and Control</p>
-            </h1>
-            <img id="img1" src="scora.png"  alt="">
+        <div class="fixed w-full top-0 left-0 flex items-center justify-center gap-10 border-b border-foreground/40 py-8 text-lg font-semibold bg-background z-[99] shadow-md">
+            <a href="#overview" class="hover:text-primary cursor-pointer transition-color">About</a>
+            <a href="#start" class="hover:text-primary cursor-pointer transition-color">Quick Start</a>
+            <a href="#forward" class="hover:text-primary cursor-pointer transition-color">Forward</a>
+            <a href="#inverse" class="hover:text-primary cursor-pointer transition-color">Inverse</a>
+            <a href="#operation" class="hover:text-primary cursor-pointer transition-color">Operation</a>
+            <a href="#specifications" class="hover:text-primary cursor-pointer transition-color">Specifications</a>
         </div>
 
-        <div class="c">
-            <label id="c1">Overview</label>
-            <label id="c2">
-                This is web-based user interface for operating SCORA ER-14 which is a 4-degree-of-freedom (DOF) robotic arm designed for educational
-                and industrial applications.It features a robust mechanical structure with precise 
-                joint articulation, enabling users to perform forward and inverse kinematics calculations
-                for motion planning. The robot is commonly used in real-world automation techniques.
-            </label>
-        </div>
-    </div>
-    <div id="Kinematics">
+        <main class="w-4xl mx-auto my-40 pt-20">
 
-    </div>
-    <div id="Operation">
-        <div class="g">
-            <label id="g1">Wireless Setup</label>
-            <label id="g2">The robot is programmed through ESP micro-controller and is driven wirelessly.Perform following steps to get started.</label>
-            <div>
-                <div >
-                    <img src="esp.png" alt="">
-                    <label >Power ON the ESP by connecting to laptop.</label>
-                </div>
-                <div>
-                    <img src="wifi.png" alt="">
-                    <label >Connect your device to ESP's Wifi Network.</label>
+            <div class="flex flex-col relative h-80">
+                <h1 class="text-7xl font-main bg-gradient-to-r bg-clip-text text-transparent from-primary to-lime-700">SCORA ER-14 <br/> ROBOT</h1>
+                <p class="text-xl font-inter font-semibold mt-auto">4-DOF Robotic arm for kinematics and control</p>
+                <img id="img1" 
+                    src="/assets/scora.png" 
+                    width="300" height="auto" alt="scora-robot"
+                    class="absolute bottom-0 right-0 -z-10" />
+            </div>
 
+            <div class="w-full h-0.5 bg-foreground/40 my-10"></div>
+
+            <div class="flex flex-col gap-4" id="overview">
+                <div class="font-main text-3xl bg-gradient-to-r bg-clip-text text-transparent from-primary to-lime-700">Overview</div>
+                <div class="font-inter font-normal text-lg leading-normal">
+                    This is web-based user interface for operating SCORA ER-14 which is a 4-degree-of-freedom (DOF) robotic arm designed for educational
+                    and industrial applications.It features a robust mechanical structure with precise 
+                    joint articulation, enabling users to perform forward and inverse kinematics calculations
+                    for motion planning. The robot is commonly used in real-world automation techniques.
                 </div>
-                <div>
-                    <img src="browser.png" alt="">
-                    <label >To access this web page,Navigate to <code>http://192.168.4.1/</code>.  </label>
+            </div>
+
+            <div class="w-full h-0.5 bg-foreground/40 my-10"></div>
+
+            <div class="flex flex-col gap-4">
+                <div class="font-main text-3xl bg-gradient-to-r bg-clip-text text-transparent from-primary to-lime-700">Kinematics</div>
+                <div class="font-inter font-normal text-lg leading-normal">TODO</div>
+            </div>
+
+            <div class="w-full h-0.5 bg-foreground/40 my-10"></div>
+
+            <div class="flex flex-col gap-4" id="operation">
+                <div class="font-main text-3xl bg-gradient-to-r bg-clip-text text-transparent from-primary to-lime-700">Operation</div>
+                <div class="font-inter font-normal text-lg leading-normal">
+                    The robot is programmed through ESP micro-controller and is driven wirelessly.Perform following steps to get started.
+                </div>
+
+                <div class="flex flex-col w-full gap-10 mt-10">
+
+                    <div class="flex items-start justify-between">
+                        <div class="flex flex-col gap-0">
+                            <div class="font-semibold text-foreground text-lg text-primary">Step 1</div>
+                            <div class="font-main text-3xl">Power ON the ESP by connecting to laptop</div>
+                        </div>
+                        <img src="/assets/esp.png" width="200" height="auto" alt="">
+                    </div>
+
+                    <div class="flex items-start justify-between">
+                        <div class="flex flex-col gap-0">
+                            <div class="font-semibold text-foreground text-lg text-primary">Step 2</div>
+                            <div class="font-main text-3xl">Connect your device to ESP's Wifi Network.</div>
+                        </div>
+                        <img src="/assets/wifi.png" width="200" height="auto" alt="">
+                    </div>
+
+                    <div class="flex items-start justify-between">
+                        <div class="flex flex-col gap-0">
+                            <div class="font-semibold text-foreground text-lg text-primary">Step 3</div>
+                            <div class="font-main text-3xl">To access this web page,Navigate to <code>http://192.168.4.1/</code>.</div>
+                        </div>
+                        <img src="/assets/browser.png" width="200" height="auto" alt="">
+                    </div>
 
                 </div>
             </div>
-        </div>
-        <div class="e">
-            <label id="e1">Get Started</label>
-            <label id="e3">Precision control at your fingertips – Operate the SCORA robot with ease!</label>
-            <label id="e2"> Trigger a 10-degree rotation or 5-cm translation for individual robot joints.</label>
-            <div>
-                <label>Joint 1:</label>
-                <button >Start</button>               
-                <label ><input type="checkbox" >Clock-wise</label>
+
+            <div class="w-full h-0.5 bg-foreground/40 my-10"></div>
+
+            <div class="flex flex-col gap-4" id="start">
+                <div class="font-main text-3xl bg-gradient-to-r bg-clip-text text-transparent from-primary to-lime-700">
+                    Get Started
+                </div>
+                <div class="font-inter font-normal text-lg leading-normal">
+                    Precision control at your fingertips – Operate the SCORA robot with ease! Trigger a 10-degree rotation or 5-cm translation for individual robot joints.
+                </div>
+
+                <div class="grid grid-cols-2 gap-10 text-2xl mt-10">
+                    <div class="flex flex-col gap-4 px-6 py-6 border border-foreground/40 rounded-2xl">
+                        <div class="font-main text-2xl">Joint 1</div>
+                        <div class="flex w-full items-center justify-between">
+                            <span class="text-lg font-semibold text-white">Clockwise</span>
+                            <label class="inline-flex items-center cursor-pointer relative">
+                                <input type="checkbox" class="sr-only peer">
+                                <div class="w-11 h-6 bg-gray-600 rounded-full peer peer-checked:bg-primary peer-focus:ring-2 peer-focus:ring-primary relative transition-colors duration-300">
+                                </div>
+                                <div class="w-5 h-5 bg-white rounded-full absolute top-1/2 -translate-y-1/2 left-0.5 transition-transform duration-300 peer z-50 peer-checked:translate-x-full"></div>
+                            </label>
+                        </div>
+
+                        <button class="bg-primary text-black py-2 rounded-2xl w-full font-semibold hover:shadow-md hover:bg-primary/90 transition-colors">Start</button>
+                    </div>
+
+                    <div class="flex flex-col gap-4 px-6 py-6 border border-foreground/40 rounded-2xl">
+                        <div class="font-main text-2xl">Joint 2</div>
+                        <div class="flex w-full items-center justify-between">
+                            <span class="text-lg font-semibold text-white">Clockwise</span>
+                            <label class="inline-flex items-center cursor-pointer relative">
+                                <input type="checkbox" class="sr-only peer">
+                                <div class="w-11 h-6 bg-gray-600 rounded-full peer peer-checked:bg-primary peer-focus:ring-2 peer-focus:ring-primary relative transition-colors duration-300">
+                                </div>
+                                <div class="w-5 h-5 bg-white rounded-full absolute top-1/2 -translate-y-1/2 left-0.5 transition-transform duration-300 peer z-50 peer-checked:translate-x-full"></div>
+                            </label>
+                        </div>
+
+                        <button class="bg-primary text-black py-2 rounded-2xl w-full font-semibold hover:shadow-md hover:bg-primary/90 transition-colors">Start</button>
+                    </div>
+                    <div class="flex flex-col gap-4 px-6 py-6 border border-foreground/40 rounded-2xl">
+                        <div class="font-main text-2xl">Joint 3</div>
+                        <div class="flex w-full items-center justify-between">
+                            <span class="text-lg font-semibold text-white">Clockwise</span>
+                            <label class="inline-flex items-center cursor-pointer relative">
+                                <input type="checkbox" class="sr-only peer">
+                                <div class="w-11 h-6 bg-gray-600 rounded-full peer peer-checked:bg-primary peer-focus:ring-2 peer-focus:ring-primary relative transition-colors duration-300">
+                                </div>
+                                <div class="w-5 h-5 bg-white rounded-full absolute top-1/2 -translate-y-1/2 left-0.5 transition-transform duration-300 peer z-50 peer-checked:translate-x-full"></div>
+                            </label>
+                        </div>
+
+                        <button class="bg-primary text-black py-2 rounded-2xl w-full font-semibold hover:shadow-md hover:bg-primary/90 transition-colors">Start</button>
+                    </div>
+                    <div class="flex flex-col gap-4 px-6 py-6 border border-foreground/40 rounded-2xl">
+                        <div class="font-main text-2xl">Joint 4</div>
+                        <div class="flex w-full items-center justify-between">
+                            <span class="text-lg font-semibold text-white">Clockwise</span>
+                            <label class="inline-flex items-center cursor-pointer relative">
+                                <input type="checkbox" class="sr-only peer">
+                                <div class="w-11 h-6 bg-gray-600 rounded-full peer peer-checked:bg-primary peer-focus:ring-2 peer-focus:ring-primary relative transition-colors duration-300">
+                                </div>
+                                <div class="w-5 h-5 bg-white rounded-full absolute top-1/2 -translate-y-1/2 left-0.5 transition-transform duration-300 peer z-50 peer-checked:translate-x-full"></div>
+                            </label>
+                        </div>
+
+                        <button class="bg-primary text-black py-2 rounded-2xl w-full font-semibold hover:shadow-md hover:bg-primary/90 transition-colors">Start</button>
+                    </div>
+
+                </div>
             </div>
-            <div>
-                <label>Joint 2:</label>
-                <button >Start</button>               
-                <label ><input type="checkbox" >Clock-wise</label>
+
+            <div class="w-full h-0.5 bg-foreground/40 my-10"></div>
+
+            <div class="flex flex-col gap-4" id="forward">
+                <div class="font-main text-3xl bg-gradient-to-r bg-clip-text text-transparent from-primary to-lime-700">
+                    Forward Kinematics
+                </div>
+                <div class="font-inter font-normal text-lg leading-normal">
+                    Provide joint poses as input and change the position of the end effector. Positive values correspond to Anti-Clockwise rotation and Upward translation.
+                </div>
+
+                <div class="grid grid-cols-2 gap-10 text-2xl mt-10">
+                    <div class="flex flex-col gap-4 px-6 py-6 border border-foreground/40 rounded-2xl">
+                        <div class="font-main text-2xl">Joint 1</div>
+                        <input type="number" placeholder="Angle(deg)" class="bg-white text-black rounded-xl px-4 text-lg font-semibold py-1" />
+                    </div>
+
+                    <div class="flex flex-col gap-4 px-6 py-6 border border-foreground/40 rounded-2xl">
+                        <div class="font-main text-2xl">Joint 2</div>
+                        <input type="number" placeholder="Angle(deg)" class="bg-white text-black rounded-xl px-4 text-lg font-semibold py-1" />
+                    </div>
+
+                    <div class="flex flex-col gap-4 px-6 py-6 border border-foreground/40 rounded-2xl">
+                        <div class="font-main text-2xl">Joint 3</div>
+                        <input type="number" placeholder="Translation (cm)" class="bg-white text-black rounded-xl px-4 text-lg font-semibold py-1" />
+                    </div>
+
+                    <div class="flex flex-col gap-4 px-6 py-6 border border-foreground/40 rounded-2xl">
+                        <div class="font-main text-2xl">Joint 4</div>
+                        <input type="number" placeholder="Angle(deg)" class="bg-white text-black rounded-xl px-4 text-lg font-semibold py-1" />
+                    </div>
+
+                    <button class="bg-primary text-black py-2 col-span-2 rounded-2xl w-full font-semibold hover:shadow-md hover:bg-primary/90 transition-colors">Move</button>
+                </div>
 
             </div>
-            <div>
-                <label>Joint 3:</label>
-                <button >Start</button>               
-                <label ><input type="checkbox" >Downward</label>
+                <div class="w-full h-0.5 bg-foreground/40 my-10"></div>
 
+            <div class="flex flex-col gap-4" id="inverse">
+                <div class="font-main text-3xl bg-gradient-to-r bg-clip-text text-transparent from-primary to-lime-700">
+                    Inverse Kinematics
+                </div>
+                <div class="font-inter font-normal text-lg leading-normal">
+                    Provide coordinate positions of the end effector with respect to base frame of the robot and see joints moving accordingly.
+                </div>
 
-            </div>
-            <div>
-                <label>Joint 4:</label>
-                <button >Start</button>               
-                <label ><input type="checkbox" >Clock-wise</label>
+                <div class="grid grid-cols-3 gap-10 text-2xl mt-10">
+                    <div class="flex flex-col gap-4 px-6 py-6 border border-foreground/40 rounded-2xl">
+                        <div class="font-main text-2xl">X</div>
+                        <input type="number" placeholder="Coordinate (cm)" class="bg-white text-black rounded-xl px-4 text-lg font-semibold py-1" />
+                    </div>
 
-            </div>
-                
-        </div>
-        <div class="f">
-            <label  id="f1">Forward Kinematics</label>
-            <label id="f2">Provide joint poses as input and change the position of the end effector.</label>
-            <label id="f3">Positive values correspond to Anti-Clockwise rotation and Upward translation.</label>
-            <div>
-                <label>Joint 1:</label>
-                <input  type="number" placeholder="Angle(deg)">                
-            </div>
-            <div>
-                <label>Joint 2:</label>
-                <input  type="number" placeholder="Angle(deg)">                
-            </div>
-            <div>
-                <label>Joint 3:</label>
-                <input  type="number" placeholder="Translation(cm)">                
-            </div>
-            <div>
-                <label>Joint 4:</label>
-                <input  type="number" placeholder="Angle(deg)">                
-              
-            </div>
-            <button id="submit">Submit</button>
-        </div>
+                    <div class="flex flex-col gap-4 px-6 py-6 border border-foreground/40 rounded-2xl">
+                        <div class="font-main text-2xl">Y</div>
+                        <input type="number" placeholder="Coordinate (cm)" class="bg-white text-black rounded-xl px-4 text-lg font-semibold py-1" />
+                    </div>
 
-        <div class="h">
-            <label id="h1">Inverse Kinematics</label>
-            <label id="h2">Provide coordinate positions of the
-                 end effector with respect to base frame of the robot
-                and see joints moving accordingly.</label>
-            <div>
-                <label>Position X:</label>
-                <input  type="number" placeholder="Coordinate(cm)">                
-            </div>
-            <div>
-                <label>Position Y:</label>
-                <input  type="number" placeholder="Coordinate(cm)">                
-            </div>
-            <div>
-                <label>Position Z:</label>
-                <input  type="number" placeholder="Coordinate(cm)">                
-            </div>
-            <button id="submit">Submit</button>
-        </div>
-    </div>
-    <div id="Specification">
+                    <div class="flex flex-col gap-4 px-6 py-6 border border-foreground/40 rounded-2xl">
+                        <div class="font-main text-2xl">Z</div>
+                        <input type="number" placeholder="Coordinate (cm)" class="bg-white text-black rounded-xl px-4 text-lg font-semibold py-1" />
+                    </div>
 
-    </div>
+                    <button class="bg-primary text-black py-2 col-span-3 rounded-2xl w-full font-semibold hover:shadow-md hover:bg-primary/90 transition-colors">Move</button>
+                </div>
+            </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded",()=>
-    {
-        let ids=["#About","#Kinematics","#Operation","#Specification"]
-        let icons=document.querySelectorAll(".a label")
-        let checks=document.querySelectorAll(".e div input")
-        let joints=document.querySelectorAll(".e div button")
-        let directions=["A","A","U","A"]
-        let requests=["M1_ON","M2_ON","M3_ON","M4_ON"]
-        for(let i=0;i<checks.length;i++)
-        {
-            checks[i].addEventListener("change",()=>
+            <div class="w-full h-0.5 bg-foreground/40 my-10"></div>
+
+            <div class="flex flex-col gap-4" id="specifications">
+                <div class="font-main text-3xl bg-gradient-to-r bg-clip-text text-transparent from-primary to-lime-700">Specifications</div>
+                <div class="font-inter font-normal text-lg leading-normal">TODO</div>
+            </div>
+
+            <div class="w-full h-0.5 bg-foreground/40 my-10"></div>
+            <div class="w-full font-main">
+                Mady by high-haseeb
+            </div>
+
+            <script>
+            document.addEventListener("DOMContentLoaded",()=>
             {
-                if(checks[i].checked)
+                    let ids=["#About","#Kinematics","#Operation","#Specification"]
+                    let icons=document.querySelectorAll(".a label")
+                    let checks=document.querySelectorAll(".e div input")
+                    let joints=document.querySelectorAll(".e div button")
+                    let directions=["A","A","U","A"]
+                    let requests=["M1_ON","M2_ON","M3_ON","M4_ON"]
+                    for(let i=0;i<checks.length;i++)
                 {
-                    if(i!=2){directions[i]="C"}
-                    else{directions[i]="D"}
+                        checks[i].addEventListener("change",()=>
+                        {
+                                if(checks[i].checked)
+                            {
+                                    if(i!=2){directions[i]="C"}
+                                    else{directions[i]="D"}
 
-                }
-            })
-        }
-        
-        icons[0].style.color="lime"
-        
-        for(let i=0;i<icons.length;i++)
-        {
-            icons[i].addEventListener("click",()=>
-            {
-                for(let j=0;j<icons.length;j++)
+                                }
+                            })
+                    }
+
+                    icons[0].style.color="lime"
+
+                    for(let i=0;i<icons.length;i++)
                 {
-                    icons[j].style.color="white"
+                        icons[i].addEventListener("click",()=>
+                        {
+                                for(let j=0;j<icons.length;j++)
+                            {
+                                    icons[j].style.color="white"
+                                }
+                                icons[i].style.color="lime"
+                                window.location.hash=ids[i]
+                            })
+                    }
+
+                    let joint_angles=document.querySelectorAll(".f div input")
+                    let submit=document.getElementById("submit")
+
+                    submit.addEventListener("click",()=>
+                    {
+                            let angles=[]
+                            for(let i=0;i<joint_angles.length;i++)
+                        {
+                                angles.push(joint_angles[i].value)
+                            }
+
+                            fetch(`/forward_kinematics?j1=${angles[0]}&j2=${angles[1]}&j3=${angles[2]}&j4=${angles[3]}`)
+                                .then(response=>response.json())
+                                .catch(error=>console.error("Error:",error))
+                        })
+                    for(let i=0;i<joints.length;i++)
+                {
+                        joints[i].addEventListener("click",()=>
+                        {
+                                fetch(`/${requests[i]}${directions[i]}`)
+                                    .then(response=>console.log("Command sent: "+requests[i]+directions[i]))
+                                    .catch(error=>console.error("Error:",error))
+                            })
+                    }
                 }
-                icons[i].style.color="lime"
-                window.location.hash=ids[i]
-            })
-        }
-        
-        let joint_angles=document.querySelectorAll(".f div input")
-        let submit=document.getElementById("submit")
-        
-        submit.addEventListener("click",()=>
-        {
-            let angles=[]
-            for(let i=0;i<joint_angles.length;i++)
-            {
-                angles.push(joint_angles[i].value)
-            }
-        
-        fetch(`/forward_kinematics?j1=${angles[0]}&j2=${angles[1]}&j3=${angles[2]}&j4=${angles[3]}`)
-        .then(response=>response.json())
-        .catch(error=>console.error("Error:",error))
-        })
-        for(let i=0;i<joints.length;i++)
-        {
-            joints[i].addEventListener("click",()=>
-            {
-                fetch(`/${requests[i]}${directions[i]}`)
-                .then(response=>console.log("Command sent: "+requests[i]+directions[i]))
-                .catch(error=>console.error("Error:",error))
-            })
-        }
-    }
-    )
-    
-    
-    </script>
-</body>
+            )
+            </script>
+        </main>
+    </body>
 </html>
