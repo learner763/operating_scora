@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body{
+            margin: 0%;
+        }
+        
+        html{
+            scroll-behavior: smooth;
+        }
+        .a{
+            display: flex;
+            position: fixed;
+            top: 0%;
+            background-color: black;
+            width: 100%;
+            justify-content: space-around;
+            align-items: center;
+            font-weight: bolder;
+            color: white;
+            font-size: 20px;
+            flex-wrap: wrap;
+            border: white solid;
+            border-width: 0px 0px 1px 0px ;
+        }
+        .a label{
+            cursor: pointer;
+            margin: 3px;
+        }
+        .b{
+            display: flex;
+            width: 100%;
+            background-color: #191960;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            flex-direction: row;
+            border: white solid;
+            border-width: 0px 0px 1px 0px ;
+
+            
+        }
+        #img1{
+            width: 300px;   
+            margin-top: 40px;   
+              
+        }
+        
+        #h1{
+            font-size: 40px;
+            margin-top:40px;
+        }
+        
+        .c{
+            display: flex;
+            width: 100%;
+            background-color: darkblue;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            flex-direction: column;
+            border: white solid;
+            border-width: 0px 0px 1px 0px ;
+            color: white;
+            
+        }
+        #c1, #e1,#f1,#g1,#h1,#dh_table{
+            font-size: 30px;
+            color: lime;
+            font-weight: bolder;
+            margin-top: 10px;
+            margin-bottom: 10px;
+
+        }
+        #c2,#e2,#e3,#f2,#f3,#h2,#g2,.g div div label{
+            font-size: 20px;
+            color: white;
+            margin-right: 15px;
+            margin-left: 15px;
+            margin-bottom: 10px;
+
+
+        }
+        .e{
+            display: flex;
+            width: 100%;
+            background-color: darkblue;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            flex-direction: column;
+            border: white solid;
+            border-width: 0px 0px 1px 0px ;
+            color: white;
+        }
+        .e div,.f div,.h div{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            flex-direction: row;
+            
+        }
+        .e div label,.f div label,.h div label{
+            font-size: 20px;
+            color: lime;
+            font-weight: bolder;
+            margin: 10px;
+        }
+        .e div button,.f button,.h button{
+            font-size: 20px;
+            border-radius: 5px;
+            margin: 10px;
+            cursor: pointer;
+            background-color: white;
+            font-weight: bold;
+        }
+        .e div button,.h button{
+            color: darkblue;
+            border-width: 1px;
+            border: darkblue solid;
+
+        }
+        .f button{
+            color: #191960;
+            border: #191960 solid;
+
+        }
+        .e div button:hover,.f button:hover,.h button:hover{
+            color: white;
+            transition: all 0.3s ease-in-out; 
+            border: white solid;  
+         
+        }
+        .e div button:hover,.h button:hover{
+            background-color: darkblue;
+        }
+        .f button:hover{
+            background-color: #191960;
+        }
+        .e div input[type="checkbox"]{
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+        }
+        .e div input[type="checkbox"]:checked{
+            accent-color: darkblue;
+        }
+
+        .f div input[type="number"],.h div input[type="number"]{
+            cursor: pointer;
+            font-size: 20px;
+            border-radius: 5px;
+            border: none;
+        }
+        .f,.h{
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+            align-items: center;
+            flex-direction: column;
+            border: white solid;
+            border-width: 0px 0px 1px 0px ;
+        }
+        .h{
+            background-color: darkblue;
+        }
+        .f{
+            background-color:#191960;
+        }
+        .g{
+            display: flex;
+            background-color: #191960;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            border: white solid;
+            border-width: 0px 0px 1px 0px ;
+        }
+        .g img{
+            width:350px;
+            
+        }
+        .g div div label{
+            width: 300px;
+            border-radius: 8px;
+            background-color: white;
+            color: #191960;
+            padding: 3px;
+
+        }
+        
+        .g div div{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .g div{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+        }
+        #Kinematics{
+            background-color: #191960;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border: white solid;
+            border-width: 0px 0px 1px 0px ;
+        }
+        #Kinematics table{
+            width: 100%;
+        }
+        #Kinematics table thead tr,#Kinematics table tbody tr{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+
+            
+        }
+        #Kinematics table thead tr th,#Kinematics table tbody tr td{
+            text-align: center;
+            flex: 1;
+            flex-wrap: wrap;
+        }
+        #Kinematics table tbody tr td{
+            border: solid white;
+            border-width: 1px 1px 1px 1px;
+        }
+        
+
+        #Kinematics table thead{
+            color: lime;
+            font-size: 20px;
+        }
+        #Kinematics table tbody{
+            color: white;
+            font-size: 20px;
+            
+        }
+        @media (max-width:850px)
+        {
+            .a label{font-size: 15px;}
+            .b #h1{font-size: 24px;margin-top: 40px;}
+            .b #p,.c #c1,.e #e1,.f #f1,.g #g1,.h #h1,#dh_table{font-size: 18px;}
+            .c #c2,.f #f2,.h #h2,.e #e2,.g #g2,.f #f3,.e #e3,#Kinematics table thead,#Kinematics table tbody{font-size: 15px;}
+            .e div label{font-size: 15px;}
+            .f div label,.h div label{font-size: 15px;}
+            .g div div label{font-size: 15px;}
+            .f div input[type="number"],.h div input[type="number"]{font-size: 15px;}
+            .e div button,.f button,.h button{font-size: 15px;}
+            #img1{width: 200px;margin-top: 10px;}
+
+            .g div div img{width: 250px;}
+        }
+    </style>
+</head>
+
+<body>
+    <div class="a">
+        <label >About</label>
+        <label >Kinematics</label>
+        <label >Operation</label>
+        <label >Specifications</label>
+    </div>
+    <div id="About">
+        <div class="b">
+            <h1 id="h1" style="color: lime;font-weight: bolder;">
+                SCORA ER-14 ROBOT
+            <p id="p" style="color: white;">4-DOF Robotic Arm for Kinematics and Control</p>
+            </h1>
+            <img id="img1" src="scora.png"  alt="">
+        </div>
+
+        <div class="c">
+            <label id="c1">Overview</label>
+            <label id="c2">
+                This is web-based user interface for operating SCORA ER-14 which is a 4-degree-of-freedom (DOF) robotic arm designed for educational
+                and industrial applications.It features a robust mechanical structure with precise 
+                joint articulation, enabling users to perform forward and inverse kinematics calculations
+                for motion planning. The robot is commonly used in real-world automation techniques.
+            </label>
+        </div>
+    </div>
+    <div id="Kinematics">
+        <label id="dh_table">Denavit-Hartenberg (DH) Table</label>
+        <table>
+            <thead>
+                <tr>
+                    <th>Link No</th>
+                    <th>Joint Angle &#952(rad)</th>
+                    <th>Joint Offset d(mm)</th>
+                    <th>Link Length a(mm)</th>
+                    <th>Twist Angle &#945(rad)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>θ1</td>
+                    <td>500</td>
+                    <td>270</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>θ2</td>
+                    <td>0</td>
+                    <td>230</td>
+                    <td>&#960</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>0</td>
+                    <td>d3</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>θ4</td>
+                    <td>230</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+    <div id="Operation">
+        <div class="g">
+            <label id="g1">Wireless Setup</label>
+            <label id="g2">The robot is programmed through ESP micro-controller and is driven wirelessly.Perform following steps to get started.</label>
+            <div>
+                <div >
+                    <img src="esp.png" alt="">
+                    <label >Power ON the ESP by connecting to laptop.</label>
+                </div>
+                <div>
+                    <img src="wifi.png" alt="">
+                    <label >Connect your device to ESP's Wifi Network.</label>
+
+                </div>
+                <div>
+                    <img src="browser.png" alt="">
+                    <label >To access this web page,Navigate to <code>http://192.168.4.1/</code>.  </label>
+
+                </div>
+            </div>
+        </div>
+        <div class="e">
+            <label id="e1">Get Started</label>
+            <label id="e3">Precision control at your fingertips – Operate the SCORA robot with ease!</label>
+            <label id="e2"> Trigger a 10-degree rotation or 5-cm translation for individual robot joints.</label>
+            <div>
+                <label>Joint 1:</label>
+                <button >Start</button>               
+                <label ><input type="checkbox" >Clock-wise</label>
+            </div>
+            <div>
+                <label>Joint 2:</label>
+                <button >Start</button>               
+                <label ><input type="checkbox" >Clock-wise</label>
+
+            </div>
+            <div>
+                <label>Joint 3:</label>
+                <button >Start</button>               
+                <label ><input type="checkbox" >Downward</label>
+
+
+            </div>
+            <div>
+                <label>Joint 4:</label>
+                <button >Start</button>               
+                <label ><input type="checkbox" >Clock-wise</label>
+
+            </div>
+                
+        </div>
+        <div class="f">
+            <label  id="f1">Forward Kinematics</label>
+            <label id="f2">Provide joint poses as input and change the position of the end effector.</label>
+            <label id="f3">Positive values correspond to Anti-Clockwise rotation and Upward translation.</label>
+            <div>
+                <label>Joint 1:</label>
+                <input  type="number" placeholder="Angle(deg)">                
+            </div>
+            <div>
+                <label>Joint 2:</label>
+                <input  type="number" placeholder="Angle(deg)">                
+            </div>
+            <div>
+                <label>Joint 3:</label>
+                <input  type="number" placeholder="Translation(cm)">                
+            </div>
+            <div>
+                <label>Joint 4:</label>
+                <input  type="number" placeholder="Angle(deg)">                
+              
+            </div>
+            <button id="submit">Submit</button>
+        </div>
+
+        <div class="h">
+            <label id="h1">Inverse Kinematics</label>
+            <label id="h2">Provide coordinate positions of the
+                end effector with respect to base frame of the robot
+                and see joints moving accordingly.</label>
+            <div>
+                <label>Position X:</label>
+                <input  type="number" placeholder="Coordinate(cm)">                
+            </div>
+            <div>
+                <label>Position Y:</label>
+                <input  type="number" placeholder="Coordinate(cm)">                
+            </div>
+            <div>
+                <label>Position Z:</label>
+                <input  type="number" placeholder="Coordinate(cm)">                
+            </div>
+            <button id="submit_inverse">Submit</button>
+        </div>
+    </div>
+    <div id="Specification">
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded",()=>
+    {
+        let ids=["#About","#Kinematics","#Operation","#Specification"]
+        let icons=document.querySelectorAll(".a label")
+        let checks=document.querySelectorAll(".e div input")
+        let joints=document.querySelectorAll(".e div button")
+        let directions=["A","A","U","A"]
+        let requests=["M1_ON","M2_ON","M3_ON","M4_ON"]
+        let end_pos=document.querySelectorAll(".h div input")
+        let submit_inverse=document.getElementById("submit_inverse")
+        let joint_angles=document.querySelectorAll(".f div input")
+        let submit=document.getElementById("submit")
+        for(let i=0;i<checks.length;i++)
+        {
+            checks[i].addEventListener("change",()=>
+            {
+                if(checks[i].checked)
+                {
+                    if(i!=2){directions[i]="C"}
+                    else{directions[i]="D"}
+                }
+                else{
+                    if(i!=2){directions[i]="A"}
+                    else{directions[i]="U"}
+                }
+            })
+        }
+        
+        icons[0].style.color="lime"
+        
+        for(let i=0;i<icons.length;i++)
+        {
+            icons[i].addEventListener("click",()=>
+            {
+                for(let j=0;j<icons.length;j++)
+                {
+                    icons[j].style.color="white"
+                }
+                icons[i].style.color="lime"
+                window.location.hash=ids[i]
+            })
+        }
+        
+        submit.addEventListener("click",()=>
+        {
+            let angles=[]
+            for(let i=0;i<joint_angles.length;i++)
+            {
+                angles.push(joint_angles[i].value)
+            }
+        
+            fetch(`/forward_kinematics?j1=${angles[0]}&j2=${angles[1]}&j3=${angles[2]}&j4=${angles[3]}`)
+            .then(response=>console.log("Command sent: "+angles))
+            .catch(error=>console.error("Error:",error))
+        })
+        submit_inverse.addEventListener("click",()=>
+        {
+            console.log(32)
+            fetch(`/inverse_kinematics?j1=30&j2=30&j3=7&j4=0`)
+            .then(response=>console.log("Command sent: "+angles))
+            .catch(error=>console.error("Error:",error))
+        })
+        for(let i=0;i<joints.length;i++)
+        {
+            joints[i].addEventListener("click",()=>
+            {
+                fetch(`/${requests[i]}${directions[i]}`)
+                .then(response=>console.log("Command sent: "+requests[i]+directions[i]))
+                .catch(error=>console.error("Error:",error))
+            })
+        }
+    }
+    )
+    
+    
+    </script>
+</body>
+</html>
