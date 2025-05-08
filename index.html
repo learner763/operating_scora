@@ -69,7 +69,7 @@
             color: white;
             
         }
-        #c1, #e1,#f1,#g1,#h1,#dh_table{
+        #c1, #e1,#f1,#g1,#h1,#dh_table,#i1,#i5{
             font-size: 30px;
             color: lime;
             font-weight: bolder;
@@ -77,7 +77,7 @@
             margin-bottom: 10px;
 
         }
-        #c2,#e2,#e3,#f2,#f3,#h2,#g2,.g div div label{
+        #c2,#e2,#e3,#f2,#f3,#h2,#g2,.g div div label,#i2,#i3,#i4,#i6,#i7,#i8{
             font-size: 20px;
             color: white;
             margin-right: 15px;
@@ -216,8 +216,18 @@
             border: white solid;
             border-width: 0px 0px 1px 0px ;
         }
+        .equations{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border: white solid;
+            border-width: 0px 0px 1px 0px ;
+            background-color: darkblue;
+        }
         #Kinematics table{
             width: 100%;
+            margin-bottom:10px;
         }
         #Kinematics table thead tr,#Kinematics table tbody tr{
             display: flex;
@@ -248,19 +258,22 @@
             font-size: 20px;
             
         }
+        #axes{
+            margin-bottom:10px;
+        }
         @media (max-width:850px)
         {
             .a label{font-size: 15px;}
             .b #h1{font-size: 24px;margin-top: 40px;}
-            .b #p,.c #c1,.e #e1,.f #f1,.g #g1,.h #h1,#dh_table{font-size: 18px;}
-            .c #c2,.f #f2,.h #h2,.e #e2,.g #g2,.f #f3,.e #e3,#Kinematics table thead,#Kinematics table tbody{font-size: 15px;}
+            .b #p,.c #c1,.e #e1,.f #f1,.g #g1,.h #h1,#dh_table,#i1,#i5{font-size: 18px;}
+            .c #c2,.f #f2,.h #h2,.e #e2,.g #g2,#i2,#i3,#i4,#i6,#i7,#i8,.f #f3,.e #e3,#Kinematics table thead,#Kinematics table tbody{font-size: 15px;}
             .e div label{font-size: 15px;}
             .f div label,.h div label{font-size: 15px;}
             .g div div label{font-size: 15px;}
             .f div input[type="number"],.h div input[type="number"]{font-size: 15px;}
             .e div button,.f button,.h button{font-size: 15px;}
             #img1{width: 200px;margin-top: 10px;}
-
+            #axes{width:300px;}
             .g div div img{width: 250px;}
         }
     </style>
@@ -293,7 +306,10 @@
         </div>
     </div>
     <div id="Kinematics">
+        
         <label id="dh_table">Denavit-Hartenberg (DH) Table</label>
+        <img id="axes" src="Screenshot (46).png" alt="">
+
         <table>
             <thead>
                 <tr>
@@ -308,15 +324,15 @@
                 <tr>
                     <td>1</td>
                     <td>θ1</td>
-                    <td>500</td>
-                    <td>270</td>
+                    <td>d1=500</td>
+                    <td>a1=270</td>
                     <td>0</td>
                 </tr>
                 <tr>
                     <td>2</td>
                     <td>θ2</td>
                     <td>0</td>
-                    <td>230</td>
+                    <td>a2=230</td>
                     <td>&#960</td>
                 </tr>
                 <tr>
@@ -329,13 +345,25 @@
                 <tr>
                     <td>4</td>
                     <td>θ4</td>
-                    <td>230</td>
+                    <td>d4=230</td>
                     <td>0</td>
                     <td>0</td>
                 </tr>
                 
             </tbody>
         </table>
+
+    </div>
+    <div class="equations">
+        <label id="i1">Forward Kinematics</label>
+        <label id="i2"><code>px= a1*cos(θ1)+a2*cos(θ1-θ2)</code></label>
+        <label id="i3"><code>py= a1*sin(θ1)+a2*sin(θ1-θ2)</code></label>
+        <label id="i4"><code>pz= d1-d3-d4</code></label>
+        <label id="i5">Inverse Kinematics</label>
+        <label id="i6"><code>θ1=acos((px*px+py*py-(a1*a1+a2*a2))/(2*a1*a2))</code></label>
+        <label id="i7"><code>θ2=arctan((a2*sin(θ1)*px+py*a1+py*a2*cos(θ1)/(px*a1+px*a2*cos(θ1)-py*a2*sin(θ1)))</code></label>
+        <label id="i8"><code>d3=d1-d4-pz</code></label>
+
     </div>
     <div id="Operation">
         <div class="g">
@@ -389,7 +417,7 @@
                 
         </div>
         <div class="f">
-            <label  id="f1">Forward Kinematics</label>
+            <label  id="f1">Forward Kinematic Control</label>
             <label id="f2">Provide joint poses as input and change the position of the end effector.</label>
             <label id="f3">Positive values correspond to Anti-Clockwise rotation and Upward translation.</label>
             <div>
@@ -413,7 +441,7 @@
         </div>
 
         <div class="h">
-            <label id="h1">Inverse Kinematics</label>
+            <label id="h1">Inverse Kinematic Control</label>
             <label id="h2">Provide coordinate positions of the
                 end effector with respect to base frame of the robot
                 and see joints moving accordingly.</label>
