@@ -3,6 +3,7 @@
 
 Apply forward and inverse kinematics to *4-DOF SCORA ROBOT* and perform pick and place movements.
 ## Components:
+ESP-32
 DC Motors (24 V)
 
 BTS7960 Motor Drivers
