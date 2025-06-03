@@ -14,6 +14,6 @@ Incremental Encoders HEDS-5500#I14
 End Effector-Servo Gripper
 
 ## User Interface
-A web based user interface has been developed that is hosted on ESP-32.
-*https://learner763.github.io/operating_scora/*
+A web based user interface has been developed that is hosted on ESP-32
+*https://learner763.github.io/operating_scora/*.
 
