@@ -16,3 +16,4 @@ End Effector-Servo Gripper
 ## User Interface
 *https://learner763.github.io/operating_scora/*
 
+![Screenshot (4)](https://github.com/user-attachments/assets/63df161b-befa-42b3-a467-79707409d2dc)
