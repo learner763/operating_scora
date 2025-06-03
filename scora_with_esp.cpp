@@ -2,10 +2,10 @@
 #include <ESPAsyncWebServer.h>
 #include <String>
 #include <iostream>
-
+#include <ESP32Servo.h>
 const char *ssid = "ESP_AP";  // WiFi Name
 const char *password = "12345678";  // WiFi Password
-
+Servo myservo;
 WiFiServer server(80);  // Start a web server on port 80
 
 
@@ -331,7 +331,7 @@ String htmlPage = R"rawliteral(
         <div class="f">
             <label  id="f1">Forward Kinematics</label>
             <label id="f2">Provide joint poses as input and change the position of the end effector.</label>
-            <label id="f3">Positive values correspond to Anti-Clockwise rotation and Upward translation.</label>
+            <label id="f3">Positive values correspond to Anti-Clockwise rotation and Downward translation.</label>
             <div>
                 <label>Joint 1:</label>
                 <input  type="number" placeholder="Angle(deg)">                
@@ -355,7 +355,7 @@ String htmlPage = R"rawliteral(
         <div class="h">
             <label id="h1">Inverse Kinematics</label>
             <label id="h2">Provide coordinate positions of the
-                 end effector with respect to base frame of the robot
+                end effector with respect to base frame of the robot
                 and see joints moving accordingly.</label>
             <div>
                 <label>Position X:</label>
@@ -369,7 +369,7 @@ String htmlPage = R"rawliteral(
                 <label>Position Z:</label>
                 <input  type="number" placeholder="Coordinate(cm)">                
             </div>
-            <button id="submit">Submit</button>
+            <button id="submit_inverse">Submit</button>
         </div>
     </div>
     <div id="Specification">
@@ -385,6 +385,10 @@ String htmlPage = R"rawliteral(
         let joints=document.querySelectorAll(".e div button")
         let directions=["A","A","U","A"]
         let requests=["M1_ON","M2_ON","M3_ON","M4_ON"]
+        let end_pos=document.querySelectorAll(".h div input")
+        let submit_inverse=document.getElementById("submit_inverse")
+        let joint_angles=document.querySelectorAll(".f div input")
+        let submit=document.getElementById("submit")
         for(let i=0;i<checks.length;i++)
         {
             checks[i].addEventListener("change",()=>
@@ -393,7 +397,10 @@ String htmlPage = R"rawliteral(
                 {
                     if(i!=2){directions[i]="C"}
                     else{directions[i]="D"}
-
+                }
+                else{
+                    if(i!=2){directions[i]="A"}
+                    else{directions[i]="U"}
                 }
             })
         }
@@ -413,8 +420,7 @@ String htmlPage = R"rawliteral(
             })
         }
         
-        let joint_angles=document.querySelectorAll(".f div input")
-        let submit=document.getElementById("submit")
+        
         
         submit.addEventListener("click",()=>
         {
@@ -424,9 +430,21 @@ String htmlPage = R"rawliteral(
                 angles.push(joint_angles[i].value)
             }
         
-        fetch(`/forward_kinematics?j1=${angles[0]}&j2=${angles[1]}&j3=${angles[2]}&j4=${angles[3]}`)
-        .then(response=>response.json())
-        .catch(error=>console.error("Error:",error))
+            fetch(`/forward_kinematics?j1=${angles[0]}&j2=${angles[1]}&j3=${angles[2]}&j4=${angles[3]}`)
+            .then(response=>console.log("Command sent: "+angles))
+            .catch(error=>console.error("Error:",error))
+        })
+        submit_inverse.addEventListener("click",()=>
+        {
+            let theta1=Math.acos((end_pos[0].value*end_pos[0].value+end_pos[1].value*end_pos[1].value-(270*270+230*230))/(2*270*230))
+            let theta2=Math.atan2(230*Math.sin(theta1)+end_pos[1].value*270+end_pos[1].value*230*Math.cos(theta1),end_pos[0].value*270+end_pos[0].value*230*Math.cos(theta1)-end_pos[1].value*230*Math.sin(theta1))
+            let trans1=270-end_pos[2].value
+            console.log(theta1)
+            console.log(theta2)
+            console.log(trans1)
+            fetch(`/inverse_kinematics?j1=${theta1*57.3}&j2=${theta2*57.3}&j3=${trans1}&j4=0`)
+            .then(response=>console.log("Command sent: "+theta1+" "+theta2+" "+trans1))
+            .catch(error=>console.error("Error:",error))
         })
         for(let i=0;i<joints.length;i++)
         {
@@ -444,22 +462,19 @@ String htmlPage = R"rawliteral(
     </script>
 </body>
 </html>
-
 )rawliteral";
-#define M1_ENCODER_A 34  
+#define M1_ENCODER_A 32
 #define M1_ENCODER_B 35  
-#define M3_ENCODER_A 32
-#define M3_ENCODER_B 33
-#define M4_ENCODER_A 0
-#define M4_ENCODER_B 15 
+#define M3_ENCODER_A 33
+#define M3_ENCODER_B 34
 #define CPR 1024      // Counts Per Revolution (adjust based on encoder model)
 
 volatile int M1_encoderCount = 0;
 int lastStateA1;
 volatile int M3_encoderCount = 0;
 int lastStateA3;
-volatile int M4_encoderCount = 0;
-int lastStateA4;
+
+
 
 void IRAM_ATTR readEncoder1() {
     int stateA1 = digitalRead(M1_ENCODER_A);
@@ -487,19 +502,8 @@ void IRAM_ATTR readEncoder3() {
     }
     lastStateA3 = stateA3;
 }
-void IRAM_ATTR readEncoder4() {
-    int stateA4 = digitalRead(M4_ENCODER_A);
-    int stateB4 = digitalRead(M4_ENCODER_B);
 
-    if (stateA4 != lastStateA4) {
-        if (stateB4 != stateA4) {
-            M4_encoderCount++;
-        } else {
-            M4_encoderCount--;
-        }
-    }
-    lastStateA4 = stateA4;
-}
+
 void setup() {
     Serial.begin(9600);
     WiFi.softAP(ssid, password);  // Create ESP's own WiFi network
@@ -516,14 +520,10 @@ void setup() {
     #define M2_LPWM 5
      //Motor3
     #define M3_REN 18
-    #define M3_LEN 21
+    #define M3_LEN 15
     #define M3_RPWM 19
-    #define M3_LPWM 22
+    #define M3_LPWM 13
      //Motor4
-    #define M4_REN 12
-    #define M4_LEN 2
-    #define M4_RPWM 13
-    #define M4_LPWM 23
     //Encoder1
     pinMode(M1_ENCODER_A, INPUT_PULLUP);
     pinMode(M1_ENCODER_B, INPUT_PULLUP);
@@ -535,13 +535,10 @@ void setup() {
     lastStateA3 = digitalRead(M3_ENCODER_A);
     attachInterrupt(digitalPinToInterrupt(M3_ENCODER_A), readEncoder3, CHANGE);
     //Encoder4
-    pinMode(M4_ENCODER_A, INPUT_PULLUP);
-    pinMode(M4_ENCODER_B, INPUT_PULLUP);
-    lastStateA4 = digitalRead(M4_ENCODER_A);
-    attachInterrupt(digitalPinToInterrupt(M4_ENCODER_A), readEncoder4, CHANGE);
+    myservo.attach(23);
 
-    int array[16]={13,23,2,12,22,19,18,21,5,17,4,16,14,25,26,27};
-    for(int i=0;i<16;i++)
+    int array[12]={13,15,19,18,5,17,4,16,14,25,26,27};
+    for(int i=0;i<12;i++)
     {
         pinMode(array[i],OUTPUT);
         digitalWrite(array[i],LOW);
@@ -558,55 +555,68 @@ void loop() {
     String request = client.readStringUntil('\r');  // Read the request
     client.flush();
 
+    
     // Check if browser requested LED ON or OFF
     if (request.indexOf("/M1_ON") != -1) {
-
         digitalWrite(M1_REN,HIGH);
         digitalWrite(M1_LEN,HIGH);
-        float angle1 = (M1_encoderCount *360) / (160*1024);  
-
-        while(angle1<10.0)
+        float angle1 = (M1_encoderCount *360*1.07) / (165*1024);  
+        int loop1=0;
+        bool condition=angle1<10.0;
+        if(request[10]=='C')
         {
-            angle1 = (M1_encoderCount *360) / (160*1024);
+            condition=angle1>-10.0;
+        }
+        while(condition)
+        {
+            angle1 = (M1_encoderCount *360) / (165*1024);
             Serial.println(angle1);
-            if(request[6]=='A'){analogWrite(M1_LPWM,150);}//AntiClockwise
-            else{analogWrite(M1_RPWM,150);}//ClockWise
-            delay(500);
+            if(request[10]=='A'){analogWrite(M1_RPWM,loop1);}//AntiClockwise
+            else{analogWrite(M1_LPWM,loop1);}//ClockWise
+            delay(50);
+            loop1+=1;
         }
         digitalWrite(M1_REN,LOW);
         digitalWrite(M1_LEN,LOW);
         analogWrite(M1_LPWM,0);
         analogWrite(M1_RPWM,0);
-
         client.println("HTTP/1.1 204 No Content"); // No response body
-    } 
+    }
     if (request.indexOf("/M2_ON") != -1) {
         digitalWrite(M2_REN,HIGH);
         digitalWrite(M2_LEN,HIGH);
-        for(float i=0;i<255;i+=.5)
+        int loop2=0;
+
+        for(int i=0;i<255;i+=1)
         {
-            if(request[6]=='C'){analogWrite(M2_RPWM,i);}//Clockwise
+            if(request[10]=='C'){analogWrite(M2_RPWM,i);}//Clockwise
             else{analogWrite(M2_LPWM,i);}//AntiClockWise
             delay(30);
-            Serial.println(i);
+            Serial.println(request[10]);
+            Serial.println(request);
+            loop2+=1;
         }
-        
-        
-
         client.println("HTTP/1.1 204 No Content"); // No response body
     }
     if (request.indexOf("/M3_ON") != -1) {
         digitalWrite(M3_REN,HIGH);
         digitalWrite(M3_LEN,HIGH);
+        int loop3=0;
+        
         float trans1= (M3_encoderCount *360) / (160*1024*4.91);
-
-        while(trans1<5.0)
+        bool condition=trans1<5.0;  
+        if(request[10]=='U')
+        {
+            condition=trans1>-5.0;
+        }
+        while(condition)
         {
             trans1 = (M3_encoderCount *360) / (160*1024*4.91);
             Serial.println(trans1);
-            if(request[6]=='D'){analogWrite(M3_RPWM,150);}//Down
-            else{analogWrite(M3_LPWM,150);}//Up
-            delay(500);
+            if(request[10]=='D'){analogWrite(M3_RPWM,loop3);condition=trans1<5.0;}//Down
+            else{analogWrite(M3_LPWM,loop3);condition=trans1>-5.0;}//Up
+            delay(50);
+            loop3+=1;
         }
         digitalWrite(M3_REN,LOW);
         digitalWrite(M3_LEN,LOW);
@@ -614,23 +624,7 @@ void loop() {
         analogWrite(M3_LPWM,0);
         client.println("HTTP/1.1 204 No Content"); // No response body
     } 
-    if (request.indexOf("/M4_ON") != -1) {
-        digitalWrite(M4_REN,HIGH);
-        digitalWrite(M4_LEN,HIGH);
-        float angle4 = 3.6*(M1_encoderCount *360) / (160*1024);  
-
-        while(angle4<90.0)
-        {
-            angle4 = 3.6*(M1_encoderCount *360) / (160*1024);
-            Serial.println(angle4);
-            analogWrite(M1_LPWM,150);//ClockWsie
-            delay(200);
-        }
-        digitalWrite(M4_REN,LOW);
-        digitalWrite(M4_LEN,LOW);
-        analogWrite(M4_LPWM,0);
-        client.println("HTTP/1.1 204 No Content"); // No response body
-    } 
+    
     if (request.indexOf("/forward_kinematics") != -1) {
         String name_=request.substring(20,request.length());
         int e[4];
@@ -655,43 +649,320 @@ void loop() {
         int j2=(name_.substring(e[1]+1,a[1])).toInt();
         int j3=(name_.substring(e[2]+1,a[2])).toInt();
         int j4=(name_.substring(e[3]+1,a[3])).toInt();
-        
-        float angle1 = (M1_encoderCount *360) / (160*1024);  
+        int loop5=0;
+        float angle1 = (M1_encoderCount *360*1.07) / (165*1024);  
         float trans1= (M3_encoderCount *360) / (160*1024*4.91);
-        Serial.println(angle1);
-        Serial.println(trans1);
-        while(angle1<j1 || trans1<j3)
+
+        Serial.println(j1);
+        Serial.println(j2);
+        Serial.println(j3);
+        Serial.println(j4);
+        
+        bool condition1=angle1<j1;
+        if(j1<0){condition1=angle1>j1;}
+        bool condition2=trans1<j3;
+        if(j3<0){condition2=trans1>j3;}
+        bool condition=condition1 || condition2;
+        while(condition)
         {
-            angle1 = (M1_encoderCount *360) / (160*1024);
+            angle1 = (M1_encoderCount *360*1.07) / (165*1024);
             trans1= (M3_encoderCount *360) / (160*1024*4.91);
             Serial.println(angle1);
             Serial.println(trans1);
 
+            if(digitalRead(M1_LEN)!=HIGH){digitalWrite(M1_LEN,HIGH);}
+            if(digitalRead(M1_REN)!=HIGH){digitalWrite(M1_REN,HIGH);}
             
-            if(digitalRead(M2_LEN)!=HIGH){digitalWrite(M2_LEN,HIGH);}
-            if(digitalRead(M2_REN)!=HIGH){digitalWrite(M2_REN,HIGH);}
             if(digitalRead(M3_LEN)!=HIGH){digitalWrite(M3_LEN,HIGH);}
             if(digitalRead(M3_REN)!=HIGH){digitalWrite(M3_REN,HIGH);}
-            if(angle1<j1){analogWrite(M2_LPWM,170);}
-            if(trans1<j3){analogWrite(M3_RPWM,170);}
+            
+            if(j1<0)
+            {
+                if(angle1>j1){analogWrite(M1_LPWM,loop5);}
+                else{analogWrite(M1_LPWM,0);}
+            }
+            else
+            {
+                if(angle1<j1){analogWrite(M1_RPWM,loop5);}
+                else{analogWrite(M1_RPWM,0);}
+            }
+
+            if(j3<0)
+            {
+                if(trans1>j3){analogWrite(M3_LPWM,loop5);}
+                else{analogWrite(M3_LPWM,0);}
+            }
+            else
+            {
+                if(trans1<j3){analogWrite(M3_RPWM,loop5);}
+                else{analogWrite(M3_RPWM,0);}
+            }
+            condition1=angle1<j1;
+            if(j1<0){condition1=angle1>j1;}
+            condition2=trans1<j3;
+            if(j3<0){condition2=trans1>j3;}  
+            condition=condition1 || condition2;  
+            myservo.write(170);        
             delay(100);
-            Serial.println("running");
+            loop5+=1;
         }
+        
             digitalWrite(M1_REN,LOW);
             digitalWrite(M1_LEN,LOW);
-            
+            digitalWrite(M2_REN,LOW);
+            digitalWrite(M2_LEN,LOW);
             digitalWrite(M3_REN,LOW);
             digitalWrite(M3_LEN,LOW);
-           
+            
             analogWrite(M1_LPWM,0);
+            analogWrite(M1_RPWM,0);
+            analogWrite(M2_RPWM,0);
+            analogWrite(M2_LPWM,0);
             analogWrite(M3_RPWM,0);
-            delay(1000);
+            analogWrite(M3_LPWM,0);
+            delay(100);
+        myservo.write(60);
+        delay(30);
+        condition1=angle1>0;
+        if(j1<0){condition1=angle1<0;}
+        condition2=trans1>0;
+        if(j3<0){condition2=trans1<0;}
+        condition=condition1 || condition2;
+        while(condition)
+        {
+            angle1 = (M1_encoderCount *360*1.07) / (165*1024);
+            trans1= (M3_encoderCount *360) / (160*1024*4.91);
+            Serial.println(angle1);
+            Serial.println(trans1);
 
+            if(digitalRead(M1_LEN)!=HIGH){digitalWrite(M1_LEN,HIGH);}
+            if(digitalRead(M1_REN)!=HIGH){digitalWrite(M1_REN,HIGH);}
+            
+            if(digitalRead(M3_LEN)!=HIGH){digitalWrite(M3_LEN,HIGH);}
+            if(digitalRead(M3_REN)!=HIGH){digitalWrite(M3_REN,HIGH);}
+            
+            if(j1<0)
+            {
+                if(angle1<0){analogWrite(M1_RPWM,loop5);}
+                else{analogWrite(M1_RPWM,0);}
+            }
+            else
+            {
+                if(angle1>0){analogWrite(M1_LPWM,loop5);}
+                else{analogWrite(M1_LPWM,0);}
+            }
+
+            if(j3<0)
+            {
+                Serial.println("hah");
+                if(trans1<0){analogWrite(M3_RPWM,loop5);Serial.println("hah1");}
+                else{analogWrite(M3_RPWM,0);}
+            }
+            else
+            {
+
+                if(trans1>0){analogWrite(M3_LPWM,loop5);Serial.println("hah2");}
+                else{analogWrite(M3_LPWM,0);}
+            }
+            condition1=angle1>0;
+            if(j1<0){condition1=angle1<0;}
+            condition2=trans1>0;
+            if(j3<0){condition2=trans1<0;}  
+            condition=condition1 || condition2;          
+            delay(200);
+            loop5+=1;
+        myservo.write(60);
+        delay(500);
+        }
         
-    
+            digitalWrite(M1_REN,LOW);
+            digitalWrite(M1_LEN,LOW);
+            digitalWrite(M2_REN,LOW);
+            digitalWrite(M2_LEN,LOW);
+            digitalWrite(M3_REN,LOW);
+            digitalWrite(M3_LEN,LOW);
+            
+            analogWrite(M1_LPWM,0);
+            analogWrite(M1_RPWM,0);
+            analogWrite(M2_RPWM,0);
+            analogWrite(M2_LPWM,0);
+            analogWrite(M3_RPWM,0);
+            analogWrite(M3_LPWM,0);
+            delay(100);
+            
+
         client.println("HTTP/1.1 204 No Content"); // No response body
     }
-   
+
+    if (request.indexOf("/inverse_kinematics") != -1) {
+        String name_=request.substring(20,request.length());
+        int e[4];
+        int a[4];
+        int ee=0;
+        int aa=0;
+        for(int i=0;i<name_.length();i++)
+        {
+            if(name_[i]=='=')
+            {
+                e[ee]=i;
+                ee+=1;
+            }
+            if(name_[i]=='&')
+            {
+                a[aa]=i;
+                aa+=1;    
+            }
+        }
+        
+        int j1=(name_.substring(e[0]+1,a[0])).toInt();
+        int j2=(name_.substring(e[1]+1,a[1])).toInt();
+        int j3=(name_.substring(e[2]+1,a[2])).toInt();
+        int j4=(name_.substring(e[3]+1,a[3])).toInt();
+        int loop5=0;
+        float angle1 = (M1_encoderCount *360*1.07) / (165*1024);  
+        float trans1= (M3_encoderCount *360) / (160*1024*4.91);
+
+        Serial.println(j1);
+        Serial.println(j2);
+        Serial.println(j3);
+        Serial.println(j4);
+        
+        bool condition1=angle1<j1;
+        if(j1<0){condition1=angle1>j1;}
+        bool condition2=trans1<j3;
+        if(j3<0){condition2=trans1>j3;}
+        bool condition=condition1 || condition2;
+        while(condition)
+        {
+            angle1 = (M1_encoderCount *360*1.07) / (165*1024);
+            trans1= (M3_encoderCount *360) / (160*1024*4.91);
+            Serial.println(angle1);
+            Serial.println(trans1);
+
+            if(digitalRead(M1_LEN)!=HIGH){digitalWrite(M1_LEN,HIGH);}
+            if(digitalRead(M1_REN)!=HIGH){digitalWrite(M1_REN,HIGH);}
+            
+            if(digitalRead(M3_LEN)!=HIGH){digitalWrite(M3_LEN,HIGH);}
+            if(digitalRead(M3_REN)!=HIGH){digitalWrite(M3_REN,HIGH);}
+            
+            if(j1<0)
+            {
+                if(angle1>j1){analogWrite(M1_LPWM,loop5);}
+                else{analogWrite(M1_LPWM,0);}
+            }
+            else
+            {
+                if(angle1<j1){analogWrite(M1_RPWM,loop5);}
+                else{analogWrite(M1_RPWM,0);}
+            }
+
+            if(j3<0)
+            {
+                if(trans1>j3){analogWrite(M3_LPWM,loop5);}
+                else{analogWrite(M3_LPWM,0);}
+            }
+            else
+            {
+                if(trans1<j3){analogWrite(M3_RPWM,loop5);}
+                else{analogWrite(M3_RPWM,0);}
+            }
+            condition1=angle1<j1;
+            if(j1<0){condition1=angle1>j1;}
+            condition2=trans1<j3;
+            if(j3<0){condition2=trans1>j3;}  
+            condition=condition1 || condition2;  
+            myservo.write(170);        
+            delay(100);
+            loop5+=1;
+        }
+        
+            digitalWrite(M1_REN,LOW);
+            digitalWrite(M1_LEN,LOW);
+            digitalWrite(M2_REN,LOW);
+            digitalWrite(M2_LEN,LOW);
+            digitalWrite(M3_REN,LOW);
+            digitalWrite(M3_LEN,LOW);
+            
+            analogWrite(M1_LPWM,0);
+            analogWrite(M1_RPWM,0);
+            analogWrite(M2_RPWM,0);
+            analogWrite(M2_LPWM,0);
+            analogWrite(M3_RPWM,0);
+            analogWrite(M3_LPWM,0);
+            delay(100);
+        myservo.write(60);
+        delay(30);
+        condition1=angle1>0;
+        if(j1<0){condition1=angle1<0;}
+        condition2=trans1>0;
+        if(j3<0){condition2=trans1<0;}
+        condition=condition1 || condition2;
+        while(condition)
+        {
+            angle1 = (M1_encoderCount *360*1.07) / (165*1024);
+            trans1= (M3_encoderCount *360) / (160*1024*4.91);
+            Serial.println(angle1);
+            Serial.println(trans1);
+
+            if(digitalRead(M1_LEN)!=HIGH){digitalWrite(M1_LEN,HIGH);}
+            if(digitalRead(M1_REN)!=HIGH){digitalWrite(M1_REN,HIGH);}
+            
+            if(digitalRead(M3_LEN)!=HIGH){digitalWrite(M3_LEN,HIGH);}
+            if(digitalRead(M3_REN)!=HIGH){digitalWrite(M3_REN,HIGH);}
+            
+            if(j1<0)
+            {
+                if(angle1<0){analogWrite(M1_RPWM,loop5);}
+                else{analogWrite(M1_RPWM,0);}
+            }
+            else
+            {
+                if(angle1>0){analogWrite(M1_LPWM,loop5);}
+                else{analogWrite(M1_LPWM,0);}
+            }
+
+            if(j3<0)
+            {
+                Serial.println("hah");
+                if(trans1<0){analogWrite(M3_RPWM,loop5);Serial.println("hah1");}
+                else{analogWrite(M3_RPWM,0);}
+            }
+            else
+            {
+
+                if(trans1>0){analogWrite(M3_LPWM,loop5);Serial.println("hah2");}
+                else{analogWrite(M3_LPWM,0);}
+            }
+            condition1=angle1>0;
+            if(j1<0){condition1=angle1<0;}
+            condition2=trans1>0;
+            if(j3<0){condition2=trans1<0;}  
+            condition=condition1 || condition2;          
+            delay(200);
+            loop5+=1;
+        myservo.write(60);
+        delay(500);
+        }
+        
+            digitalWrite(M1_REN,LOW);
+            digitalWrite(M1_LEN,LOW);
+            digitalWrite(M2_REN,LOW);
+            digitalWrite(M2_LEN,LOW);
+            digitalWrite(M3_REN,LOW);
+            digitalWrite(M3_LEN,LOW);
+            
+            analogWrite(M1_LPWM,0);
+            analogWrite(M1_RPWM,0);
+            analogWrite(M2_RPWM,0);
+            analogWrite(M2_LPWM,0);
+            analogWrite(M3_RPWM,0);
+            analogWrite(M3_LPWM,0);
+            delay(100);
+            
+
+        client.println("HTTP/1.1 204 No Content"); // No response body
+    }
+    
     else {
         // Serve the HTML page when root URL is requested
         client.println("HTTP/1.1 200 OK");
